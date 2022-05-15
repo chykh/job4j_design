@@ -7,35 +7,28 @@ public class EvenNumbersIterator implements Iterator<Integer> {
 
     private int[] data;
     private int index;
-    boolean flag;
+    private int temp;
 
     public EvenNumbersIterator(int[] data) {
         this.data = data;
     }
 
-    public Integer step() {
-        flag = false;
-
-        for (int i = index; i < data.length; i++) {
-            if (data[i] % 2 == 0) {
-                flag = true;
-                return i;
-            }
-        }
-        return index;
-    }
-
     @Override
     public boolean hasNext() {
-        step();
-        return flag;
+        for (int i = index; i < data.length; i++) {
+            if (data[i] % 2 == 0) {
+                temp = i;
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public Integer next() {
         if (hasNext()) {
-            index = step() + 1;
-            return data[index - 1];
+            index = temp;
+            return data[index++];
         } else {
             throw new NoSuchElementException();
         }
