@@ -37,5 +37,4 @@ public class MatrixIt implements Iterator<Integer> {
             throw new NoSuchElementException();
         }
     }
-
 }
