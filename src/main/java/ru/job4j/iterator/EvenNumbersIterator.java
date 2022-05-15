@@ -33,5 +33,4 @@ public class EvenNumbersIterator implements Iterator<Integer> {
             throw new NoSuchElementException();
         }
     }
-
 }
