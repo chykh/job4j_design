@@ -56,5 +56,4 @@ public class Generics {
         gen.printLowerBoundedWildCard(second);
         /* gen.printLowerBoundedWildCard(third);  */
     }
-
 }
