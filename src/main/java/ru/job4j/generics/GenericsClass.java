@@ -1,6 +1,6 @@
 package ru.job4j.generics;
 
-public class GenericsClass <K, V>{
+public class GenericsClass<K, V> {
     private K key;
     private V value;
 
