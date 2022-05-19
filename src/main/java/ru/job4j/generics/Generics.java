@@ -6,6 +6,8 @@ import java.util.List;
 
 public class Generics {
 
+    /* public void printObject(List<Object> list) {
+        for (Iterator<Object> it = list.iterator(); it.hasNext();) {  */
     public void printObject(List<?> list) {
         for (Iterator<?> it = list.iterator(); it.hasNext();) {
             Object next = it.next();
@@ -13,6 +15,8 @@ public class Generics {
         }
     }
 
+    /*public void printBoundedWildCard(List<Predator> list) {
+        for (Iterator<Predator> it = list.iterator(); it.hasNext();) {  */
     public void printBoundedWildCard(List<? extends Predator> list) {
         for (Iterator<? extends Predator> it = list.iterator(); it.hasNext();) {
             Object next = it.next();
@@ -20,6 +24,8 @@ public class Generics {
         }
     }
 
+    /* public void printLowerBoundedWildCard(List<Predator> list) {
+        for (Iterator<Predator> it = list.iterator(); it.hasNext();) {  */
     public void printLowerBoundedWildCard(List<? super Predator> list) {
         for (Iterator<? super Predator> it = list.iterator(); it.hasNext();) {
             Object next = it.next();
@@ -41,12 +47,14 @@ public class Generics {
         gen.printObject(third);
         System.out.println();
 
+       /* gen.printBoundedWildCard(first);  */
         gen.printBoundedWildCard(second);
         gen.printBoundedWildCard(third);
         System.out.println();
 
         gen.printLowerBoundedWildCard(first);
         gen.printLowerBoundedWildCard(second);
+        /* gen.printLowerBoundedWildCard(third);  */
     }
 
 }
