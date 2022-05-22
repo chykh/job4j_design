@@ -25,8 +25,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, container.length);
-        T rsl = container[index];
+        T rsl = get(index);
         container[index] = newValue;
         modCount++;
         return rsl;
@@ -34,8 +33,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, container.length);
-        T rsl = container[index];
+        T rsl = get(index);
         System.arraycopy(container, index + 1, container, index, container.length - index - 1);
         container[container.length - 1] = null;
         size--;
@@ -45,7 +43,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T get(int index) {
-        Objects.checkIndex(index, container.length);
+        Objects.checkIndex(index, size);
         return container[index];
     }
 
@@ -55,7 +53,8 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     }
 
     private T[] grow() {
-        T[] newContainer = (T[]) new Object[container.length * 2];
+        T[] newContainer = container.length == 0
+                ? (T[]) new Object[1] : (T[]) new Object[container.length * 2];
         System.arraycopy(container, 0, newContainer, 0, container.length);
         return newContainer;
     }
@@ -63,22 +62,22 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public Iterator<T> iterator() {
 
-        return new Iterator<T>() {
+        return new Iterator<>() {
             private final int expectedModCount = modCount;
             private int step;
 
             @Override
             public boolean hasNext() {
-            return step < size;
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                return step < size;
             }
 
             @Override
             public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
-                }
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException();
                 }
                 return container[step++];
             }
