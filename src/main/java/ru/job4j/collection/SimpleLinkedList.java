@@ -7,15 +7,13 @@ import java.util.Objects;
 
 public class SimpleLinkedList<E> implements LinkedList<E> {
 
-    private int size;
-    private Node<E> last;
+    private Node<E> lastAdded;
     private Node<E> first;
-    private Node<E> current;
     private int modCount;
+    private int size;
 
     private static class Node<E> {
         private final E element;
-        private int counter;
         private Node<E> next;
 
         private Node(E element, Node<E> next) {
@@ -26,24 +24,24 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public void add(E value) {
-        Node<E> prev = last;
-        Node<E> current = new Node<>(value, null);
-        last = current;
-        if (prev == null) {
-            first = current;
+        Node<E> previous = lastAdded;
+        Node<E> newNode = new Node<>(value, null);
+        lastAdded = newNode;
+        if (previous == null) {
+            first = newNode;
         } else {
-            prev.next = current;
+            previous.next = newNode;
         }
-        current.counter = size++;
-        this.current = current;
+        size++;
         modCount++;
     }
 
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
-        current = first;
-        while (current.counter != index) {
+        Node<E> current = first;
+        int counter = 0;
+        while (counter++ != index) {
             current = current.next;
         }
         return current.element;
@@ -51,9 +49,9 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public Iterator<E> iterator() {
-        current = first;
+
         return new Iterator<>() {
-            private int step = 0;
+            Node<E> current = first;
             private final int expectedModCount = modCount;
 
             @Override
@@ -61,7 +59,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return step < size;
+                return current != null;
             }
 
             @Override
@@ -71,7 +69,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
                 }
                 E rsl = current.element;
                 current = current.next;
-                step++;
                 return rsl;
             }
         };
