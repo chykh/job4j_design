@@ -4,9 +4,9 @@ import java.util.NoSuchElementException;
 
 public class SimpleQueue<T> {
     private final SimpleStack<T> in = new SimpleStack<>();
-    int pushCounter;
+    private int pushCounter;
     private final SimpleStack<T> out = new SimpleStack<>();
-    int pollCounter;
+    private int pollCounter;
 
     public T poll() {
         if (pollCounter == 0) {
