@@ -68,7 +68,6 @@ public class ListUtilsTest {
         assertThat(input, is(Arrays.asList(0, 1, 2)));
     }
 
-
     @Test
     public void whenReplaceFirstAndLast() {
         List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 6, 0));
@@ -92,7 +91,6 @@ public class ListUtilsTest {
         ListUtils.replaceIf(input, predicate, 12);
         assertThat(input, is(Arrays.asList(0, 1, 2, 6, 0, 2)));
     }
-
 
     @Test
     public void whenRemoveAllMiddle() {
