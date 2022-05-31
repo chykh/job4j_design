@@ -39,18 +39,19 @@ public class ForwardLinked<T> implements Iterable<T> {
 
     public boolean revert() {
         boolean valid = head != null && head.next != null;
+        if (valid) {
+            ForwardLinked.Node<T> next;
+            ForwardLinked.Node<T> current = head;
+            ForwardLinked.Node<T> prev = null;
 
-        ForwardLinked.Node<T> next;
-        ForwardLinked.Node<T> current = head;
-        ForwardLinked.Node<T> prev = null;
-
-        while (current != null) {
-            next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
+            while (current != null) {
+                next = current.next;
+                current.next = prev;
+                prev = current;
+                current = next;
+            }
+            head = prev;
         }
-        head = prev;
         return valid;
     }
 
@@ -86,23 +87,3 @@ public class ForwardLinked<T> implements Iterable<T> {
         }
     }
 }
-
-/* public boolean revert() {
-        if (head == null || head.next == null) {
-            return false;
-        }
-        ForwardLinked.Node<T> next;
-        ForwardLinked.Node<T> current = head;
-        ForwardLinked.Node<T> prev = null;
-
-        while (current != null) {
-            next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
-        }
-        head = prev;
-        return true;
-    }
-
- */

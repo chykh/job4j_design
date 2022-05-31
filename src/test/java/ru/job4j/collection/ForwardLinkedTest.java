@@ -43,5 +43,4 @@ public class ForwardLinkedTest {
         singleList.add(1);
         assertFalse(singleList.revert());
     }
-
 }
