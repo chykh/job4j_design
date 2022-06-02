@@ -115,4 +115,5 @@ public class ListUtilsTest {
         ListUtils.removeAll(input, deleted);
         assertThat(input, is(Arrays.asList(0, 2, 1, 2, 6, 0)));
     }
+
 }
