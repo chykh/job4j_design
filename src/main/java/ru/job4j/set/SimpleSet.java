@@ -3,6 +3,7 @@ package ru.job4j.set;
 import ru.job4j.collection.SimpleArrayList;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 public class SimpleSet<T> implements Set<T> {
 
@@ -20,9 +21,8 @@ public class SimpleSet<T> implements Set<T> {
     @Override
     public boolean contains(T value) {
         boolean valid = false;
-
         for (T element : set) {
-            valid = (value == null && element == null) || (element != null && element.equals(value));
+            valid = Objects.equals(element, value);
             if (valid) {
                 break;
             }
