@@ -22,17 +22,24 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     private void expand() {
         if (count >= capacity * LOAD_FACTOR) {
+            MapEntry<K, V>[] temp = new MapEntry[capacity];
+            System.arraycopy(table, 0, temp, 0, temp.length);
             capacity *= 1.5;
+            table = new MapEntry[capacity];
+            for (MapEntry<K, V> entry : temp) {
+                put(entry.key, entry.value);
+            }
         }
     }
 
     @Override
     public boolean put(K key, V value) {
+        expand();
         int index = indexFor(hash(key.hashCode()));
         boolean valid = table[index] == null;
         if (valid) {
             count++;
-            expand();
+            modCount++;
             table[index] = new MapEntry<>(key, value);
         }
         return valid;
@@ -41,17 +48,17 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         int index = indexFor(hash(key.hashCode()));
-        MapEntry<K, V> mapEntry = table[index];
-        return mapEntry.value;
+        return table[index].key == key ? table[index].value : null;
     }
 
     @Override
     public boolean remove(K key) {
         int index = indexFor(hash(key.hashCode()));
-        boolean valid = table[index] != null;
+        boolean valid = table[index] != null && table[index].key == key;
         if (valid) {
             table[index] = null;
             count--;
+            modCount++;
         }
         return valid;
     }
@@ -68,7 +75,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                while (table[i].key == null) {
+                while (i < capacity && table[i].key == null) {
                     i++;
                 }
                 return i < capacity;
@@ -82,7 +89,6 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 return table[i++].key;
             }
         };
-
     }
 
     private static class MapEntry<K, V> {

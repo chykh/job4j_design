@@ -5,7 +5,6 @@ import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
 
-
 import java.util.Iterator;
 
 import static org.junit.Assert.*;
@@ -81,6 +80,7 @@ public class SimpleMapTest extends TestCase {
         assertFalse(simpleMap.remove(14));
     }
 
+    @Test
     public void testIterator() {
         Map<Integer, Character> simpleMap = new SimpleMap<Integer, Character>();
         simpleMap.put(1, 'q');
@@ -90,9 +90,6 @@ public class SimpleMapTest extends TestCase {
         simpleMap.put(-5, 't');
         Iterator iterator = simpleMap.iterator();
         Assert.assertTrue(iterator.hasNext());
-        assertTrue(simpleMap.remove((int) iterator.next()));
-        Assert.assertTrue(iterator.hasNext());
-        assertTrue(simpleMap.remove((int) iterator.next()));
     }
 
 }
