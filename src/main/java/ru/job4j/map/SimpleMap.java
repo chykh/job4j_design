@@ -26,9 +26,13 @@ public class SimpleMap<K, V> implements Map<K, V> {
             System.arraycopy(table, 0, temp, 0, temp.length);
             capacity *= 1.5;
             table = new MapEntry[capacity];
+            int tempCount = count;
+            int tempModCount = modCount;
             for (MapEntry<K, V> entry : temp) {
                 put(entry.key, entry.value);
             }
+            count = tempCount;
+            modCount = tempModCount;
         }
     }
 
@@ -48,7 +52,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         int index = indexFor(hash(key.hashCode()));
-        return table[index].key == key ? table[index].value : null;
+        return  key.equals(table[index].key) ? table[index].value : null;
     }
 
     @Override
@@ -75,7 +79,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                while (i < capacity && table[i].key == null) {
+                while (i < capacity && table[i] == null) {
                     i++;
                 }
                 return i < capacity;
