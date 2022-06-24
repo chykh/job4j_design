@@ -52,13 +52,16 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         int index = indexFor(hash(key.hashCode()));
-        return  key.equals(table[index].key) ? table[index].value : null;
+        return  key.hashCode() == table[index].key.hashCode()
+                && key.equals(table[index].key) ? table[index].value : null;
     }
 
     @Override
     public boolean remove(K key) {
         int index = indexFor(hash(key.hashCode()));
-        boolean valid = table[index] != null && table[index].key == key;
+        boolean valid = table[index] != null
+                && key.hashCode() == table[index].key.hashCode()
+                && key.equals(table[index].key);
         if (valid) {
             table[index] = null;
             count--;
