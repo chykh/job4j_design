@@ -8,11 +8,11 @@ public class SimpleTreeTest {
 
     @Test
     public void when6ElFindLastThen6() {
-        Tree<Integer> tree = new SimpleTree<>(1);
+        Tree<Integer> tree = new SimpleTree<>(5);
         tree.add(1, 2);
         tree.add(1, 3);
         tree.add(1, 4);
-        tree.add(4, 5);
+        tree.add(1, 5);
         tree.add(5, 6);
         assertThat(
                 tree.findBy(6).isPresent(),
@@ -60,8 +60,7 @@ public class SimpleTreeTest {
         tree.add(2, 4);
         tree.add(2, 5);
         tree.add(5, 6);
-        tree.add(1, 7);
+        tree.add(2, 7);
         assertFalse(tree.isBinary());
     }
-
 }

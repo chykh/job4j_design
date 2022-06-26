@@ -20,5 +20,4 @@ public interface Tree<E> {
             this.value = value;
         }
     }
-
 }
