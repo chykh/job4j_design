@@ -12,8 +12,6 @@ public class Analize {
         int deleted = 0;
         int c = 0;
 
-
-
         Map<Integer, String> map = new HashMap<>();
         for (User prev : previous) {
             map.put(prev.getId(), prev.getName());
