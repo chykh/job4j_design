@@ -17,7 +17,7 @@ public class Matrix {
 
     public static void main(String[] args) {
         try (FileOutputStream out = new FileOutputStream("matrix.txt")) {
-            for (int[] array : multiple(5)) {
+            for (int[] array : multiple(6)) {
                 String st = Arrays.toString(array);
                 out.write(st.getBytes());
                 out.write(System.lineSeparator().getBytes());
@@ -26,4 +26,5 @@ public class Matrix {
             e.printStackTrace();
         }
     }
+
 }
