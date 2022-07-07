@@ -16,7 +16,6 @@ public class LogFilter {
                 String[] str = string.split(" ");
                 if ("404".equals(str[str.length - 2])) {
                     result.add(string);
-                    result.add(System.lineSeparator());
                 }
             }
         } catch (IOException e) {
@@ -26,10 +25,8 @@ public class LogFilter {
     }
 
     public static void save(List<String> log, String file) {
-        try (PrintWriter out = new PrintWriter(
-                new BufferedOutputStream(new FileOutputStream(file))
-        )) {
-            out.println(log);
+        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(file)))) {
+            log.forEach(out::println);
         }   catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,7 +35,6 @@ public class LogFilter {
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter();
         List<String> log = logFilter.filter("log.txt");
-        System.out.println(log);
         save(log, "404.txt");
     }
 }
