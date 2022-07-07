@@ -44,5 +44,4 @@ public class ConfigTest {
         Config config = new Config(path);
         config.load();
     }
-
 }

@@ -20,7 +20,7 @@ public class Config {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             String[] array = read.lines().toArray(String[]::new);
             for (String string:array) {
-                String[] str = string.split("=",2);
+                String[] str = string.split("=", 2);
                 if (!string.equals("") && str.length != 0  && !str[0].contains("#")) {
                       if (str.length != 2 || str[0].equals("") || str[1].equals("")) {
                           throw new IllegalArgumentException();
