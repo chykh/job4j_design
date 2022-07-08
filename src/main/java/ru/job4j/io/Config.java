@@ -19,14 +19,23 @@ public class Config {
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             String[] array = read.lines().toArray(String[]::new);
+
             for (String string:array) {
-                String[] str = string.split("=", 2);
-                if (!string.equals("") && str.length != 0  && !str[0].contains("#")) {
-                      if (str.length != 2 || str[0].equals("") || str[1].equals("")) {
-                          throw new IllegalArgumentException();
-                      }
-                      values.put(str[0], str[1]);
+                if (string.isBlank() || string.contains("#")) {
+                    continue;
                 }
+
+                String[] str = string.split("=", 2);
+
+                try {
+                     if (str.length != 2 || str[0].isBlank() || str[1].isBlank()) {
+                          throw new IllegalArgumentException(str[0] + str[1]);
+                     }
+                     values.put(str[0], str[1]);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Выявлена строка с нарушением формата: " + e.getMessage());
+                }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
