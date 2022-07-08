@@ -29,8 +29,6 @@ public class ConfigTest {
         String path = "./resources/config/whenWrongTemplate1.properties";
         Config config = new Config(path);
         config.load();
-
-
     }
 
     @Test

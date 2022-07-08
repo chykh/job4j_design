@@ -64,5 +64,4 @@ public class Config {
         System.out.println(config.value("hibernate.connection.username"));
 
     }
-
 }
