@@ -34,9 +34,8 @@ public class Analizy {
              e.printStackTrace();
          }
 
-
          try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(target)))) {
-             for ( String string:result) {
+             for (String string:result) {
                    out.println(string);
              }
 
@@ -49,7 +48,7 @@ public class Analizy {
     public static void main(String[] args) {
         Analizy first = new Analizy();
         String path = "./resources/analyzy/";
-        first.unavailable(path + "Analyzy_source.txt",path +  "Analyzy_target.txt");
+        first.unavailable(path + "Analyzy_source.txt", path +  "Analyzy_target.txt");
 
     }
 }
