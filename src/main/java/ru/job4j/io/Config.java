@@ -21,7 +21,7 @@ public class Config {
             String[] array = read.lines().toArray(String[]::new);
 
             for (String string:array) {
-                if (string.isBlank() || string.contains("#")) {
+                if (string.isBlank() || string.startsWith("#")) {
                     continue;
                 }
 
@@ -29,7 +29,7 @@ public class Config {
 
                 try {
                      if (str.length != 2 || str[0].isBlank() || str[1].isBlank()) {
-                          throw new IllegalArgumentException(str[0] + str[1]);
+                          throw new IllegalArgumentException(string);
                      }
                      values.put(str[0], str[1]);
                 } catch (IllegalArgumentException e) {
