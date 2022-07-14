@@ -16,13 +16,13 @@ public class Analizy {
              for (String string : list) {
                  String[] str = string.split(" ");
 
-                 if ((str[0].equals("400") || str[0].equals("500")) && !flag) {
+                 if (("400".equals(str[0]) || "500".equals(str[0])) && !flag) {
                     flag = true;
                     out.print(str[1] + ";");
                     continue;
                  }
 
-                 if (flag && !str[0].equals("400") && !str[0].equals("500")) {
+                 if (flag && !"400".equals(str[0]) && !"500".equals(str[0])) {
                     flag = false;
                     out.println(str[1]);
                  }
