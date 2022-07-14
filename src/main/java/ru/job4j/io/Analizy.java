@@ -10,11 +10,12 @@ public class Analizy {
 
          try (BufferedReader in = new BufferedReader(new FileReader(source));
               PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(target)))) {
-             List<String> list = in.lines().collect(Collectors.toList());
-             boolean flag = false;
 
-             for (String string : list) {
-                 String[] str = string.split(" ");
+             boolean flag = false;
+             String line;
+
+             while ((line = in.readLine()) != null) {
+                 String[] str = line.split(" ");
 
                  if (("400".equals(str[0]) || "500".equals(str[0])) && !flag) {
                     flag = true;
