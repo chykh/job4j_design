@@ -40,4 +40,5 @@ public class Analizy {
         first.unavailable(path + "Analyzy_source.txt", path +  "Analyzy_target.txt");
 
     }
+
 }
