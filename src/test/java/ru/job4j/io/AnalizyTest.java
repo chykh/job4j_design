@@ -9,7 +9,7 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.*;
 
-public class AnalizyTest{
+public class AnalizyTest {
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
