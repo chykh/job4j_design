@@ -15,8 +15,15 @@ public class Search {
         return searcher.getList();
     }
 
+    public static boolean validate(String[] args) {
+        return args.length == 2;
+    }
+
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
-        search(start, p -> p.toFile().getName().endsWith(".js")).forEach(System.out::println);
+        if (!validate(args)) {
+            throw new IllegalArgumentException("You must enter 2 arguments: path and rule");
+        }
+        Path start = Paths.get(args[0]);
+        search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
 }
