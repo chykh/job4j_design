@@ -16,13 +16,20 @@ public class Search {
     }
 
     public static boolean validate(String[] args) {
-        if (args[0].isEmpty() || !args[0].contains(".")) {
-            throw new IllegalArgumentException("wrong first argument");
+
+        if (args.length != 2) {
+            throw new IllegalArgumentException("введено некорректное количество аргументов: " + args.length);
         }
-        if (args[1].isEmpty() || args[1].length() > 4) {
-            throw new IllegalArgumentException("wrong second argument");
+
+        Path path = Paths.get(args[0]);
+        if (!Files.exists(path) || !path.toFile().isDirectory()) {
+            throw new IllegalArgumentException("введен неправильный путь " + args[0]);
         }
-        return args.length == 2;
+        if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException("введено неправильное расширение " + args[1]);
+        }
+
+        return true;
     }
 
     public static void main(String[] args) throws IOException {
