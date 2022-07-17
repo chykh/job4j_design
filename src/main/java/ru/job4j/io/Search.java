@@ -15,29 +15,23 @@ public class Search {
         return searcher.getList();
     }
 
-    public static boolean validate(String[] args) {
-
+    public static void validate(String[] args) {
         if (args.length != 2) {
-            throw new IllegalArgumentException("введено некорректное количество аргументов: " + args.length);
+            throw new IllegalArgumentException(
+                    String.format("введено некорректное количество аргументов: %d", args.length));
         }
-
         Path path = Paths.get(args[0]);
         if (!Files.exists(path) || !path.toFile().isDirectory()) {
-            throw new IllegalArgumentException("введен неправильный путь " + args[0]);
+            throw new IllegalArgumentException(String.format("введен неправильный путь: %s", args[0]));
         }
         if (!args[1].startsWith(".")) {
-            throw new IllegalArgumentException("введено неправильное расширение " + args[1]);
+            throw new IllegalArgumentException(String.format("введено неправильное расширение: %s", args[1]));
         }
-
-        return true;
     }
 
     public static void main(String[] args) throws IOException {
-        if (!validate(args)) {
-            throw new IllegalArgumentException();
-        }
+        validate(args);
         Path start = Paths.get(args[0]);
         search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
-
 }
