@@ -16,7 +16,6 @@ public class ArgsNameTest {
     @Test
     public void whenVoid() throws IllegalArgumentException {
         String message = "wrong arguments";
-
         try {
             String[] string = new String[] {""};
             ArgsName.of(string);
@@ -28,7 +27,6 @@ public class ArgsNameTest {
     @Test
     public void whenNoKey() throws IllegalArgumentException {
         String message = "wrong arguments";
-
         try {
             String[] string = new String[] {"-=512"};
             ArgsName.of(string);
@@ -40,7 +38,6 @@ public class ArgsNameTest {
     @Test
     public void whenNoSecondSymbol() throws IllegalArgumentException {
         String message = "wrong arguments";
-
         try {
             String[] string = new String[] {"-Xmx512"};
             ArgsName.of(string);
@@ -52,7 +49,6 @@ public class ArgsNameTest {
     @Test
     public void whenNoFirstSymbol() throws IllegalArgumentException {
         String message = "wrong arguments";
-
         try {
             String[] string = new String[] {"Xmx=512"};
             ArgsName.of(string);
