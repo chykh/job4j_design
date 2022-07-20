@@ -74,4 +74,5 @@ public class ConsoleChat {
             e.printStackTrace();
         }
     }
+
 }
