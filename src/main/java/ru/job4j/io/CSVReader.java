@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,11 +25,7 @@ public class CSVReader {
         if (!Files.exists(path) || !path.toFile().isFile()) {
             throw new IllegalArgumentException(String.format("введен неправильное название файла ввода: %s", source));
         }
-        path = Paths.get(target);
-        if (!Files.exists(path) || !path.toFile().isFile()) {
-            throw new IllegalArgumentException(String.format("введен неправильное название файла вывода: %s", source));
-        }
-    }
+      }
 
     public static void handle(ArgsName args) throws Exception {
         String source = args.get("path");
@@ -61,7 +58,7 @@ public class CSVReader {
                     }
                 }
             }
-            output.write("\n".getBytes());
+            output.write(System.lineSeparator().getBytes());
 
             while (scanner.hasNextLine()) {
                 str = scanner.nextLine().split(delimiter);
