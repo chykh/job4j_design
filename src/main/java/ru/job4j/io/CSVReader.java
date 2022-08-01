@@ -37,15 +37,10 @@ public class CSVReader {
         String[] filters = filter.split(",");
         Integer[] numbers = new Integer[filters.length];
 
-        OutputStream output = null;
         try (FileInputStream input = new FileInputStream(source)) {
 
-            try {
-                if (target.equals("stdout")) {
-                    output = new PrintStream(System.out);
-                } else {
-                    output = new FileOutputStream(target);
-                }
+            try (OutputStream output = (target.equals("stdout")
+                    ? new PrintStream(System.out) : new FileOutputStream(target))) {
 
                 try (var scanner = new Scanner(input)) {
                     String[] str = scanner.nextLine().split(delimiter);
@@ -75,11 +70,9 @@ public class CSVReader {
                     }
 
                 }
-            } finally {
-                if (output != null) {
-                    output.close();
-                }
+
             }
+
         }
     }
 
