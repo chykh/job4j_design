@@ -1,6 +1,5 @@
 /*
-java -jar C:\projects\job4j_design\out\artifacts\job4j_design.jar
- -path=C:\projects\job4j_design\source.csv -delimiter=";" -out=C:\projects\job4j_design\target.csv -filter=name,age
+java -jar C:\projects\job4j_design\out\artifacts\job4j_design.jar -path=C:\projects\job4j_design\source.csv -delimiter=";" -out=C:\projects\job4j_design\target.csv -filter=name,age
  */
 package ru.job4j.io;
 
@@ -27,7 +26,7 @@ public class CSVReader {
         }
     }
 
-    public static void handle(ArgsName args) throws Exception {
+    public static void handle(ArgsName args) {
         String source = args.get("path");
         String target = args.get("out");
         String delimiter = args.get("delimiter");
@@ -72,7 +71,8 @@ public class CSVReader {
                 }
 
             }
-
+        }  catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
