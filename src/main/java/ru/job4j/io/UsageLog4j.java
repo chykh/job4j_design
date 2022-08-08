@@ -23,4 +23,5 @@ public class UsageLog4j {
         LOG.debug("Primitive types: int = {}, char = {}, byte = {}, boolean = {},"
                 + " double = {}, long = {}, float = {}, short = {}", i, ch, b, flag, number, l, f, s);
     }
+
 }
