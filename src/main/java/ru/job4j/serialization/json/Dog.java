@@ -2,6 +2,7 @@ package ru.job4j.serialization.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -30,12 +31,21 @@ public class Dog {
     public static void main(String[] args) {
         final Friend friend = new Friend(true, 1, "Sharik");
         final Dog dog = new Dog(false, 1, "Kvadrat", new String[] {"meat", "milk", "sup"}, friend);
-        final Gson gson = new GsonBuilder().create();
-        final String gsonString = gson.toJson(dog);
-        System.out.println("Строка gson: \n" + gsonString);
 
-        final Dog gsonDog = gson.fromJson(gsonString, Dog.class);
-        System.out.println("Объект из gson: \n" + gsonDog);
+        final Gson gsonDog = new GsonBuilder().create();
+        String jsonString = gsonDog.toJson(dog);
+        System.out.println("dog -> jsonString \n" + jsonString);
+
+        JSONObject jsonDog = new JSONObject(jsonString);
+        System.out.println("dog -> jsonObject \n" + jsonDog);
+        System.out.println();
+
+        final Gson gsonFriend = new GsonBuilder().create();
+        jsonString = gsonFriend.toJson(friend);
+        System.out.println("friend -> jsonString \n" + jsonString);
+
+        JSONObject jsonFriend = new JSONObject(jsonString);
+        System.out.println("friend -> jsonObject \n" + jsonFriend);
     }
 
 }
