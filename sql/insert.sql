@@ -1,11 +1,11 @@
+insert into role(name) values('Admin');
+insert into role(name) values('User');
+insert into role(name) values('Guest');
+
 insert into users(name, role_id) values('Oleg', 1);
 insert into users(name, role_id) values('Maks', 2);
 insert into users(name, role_id) values('Stepan', 2);
 insert into users(name, role_id) values('Evgenii', 3);
-
-insert into role(name) values('Admin');
-insert into role(name) values('User');
-insert into role(name) values('Guest');
 
 insert into rules(name) values('All');
 insert into rules(name) values('No_delete');
