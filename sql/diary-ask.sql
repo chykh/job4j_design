@@ -1,0 +1,3 @@
+select l.id, l.name, sd.date, sd.score from lessons as l join school_diary as sd on sd.lessons_id = l.id and sd.score < 3;
+select l.id as Номер, l.name as Название, sd.date as Дата, sd.score as Оценка from lessons as l join school_diary as sd on sd.lessons_id = l.id;
+select l.name as "Предметы для пересдачи", sd.score Неуд from lessons as l join school_diary as sd on sd.lessons_id = l.id and sd.score = 1;
