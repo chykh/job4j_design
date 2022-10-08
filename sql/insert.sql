@@ -37,9 +37,9 @@ insert into attachs(name) values('drawing.dwg');
 insert into attachs(name) values('text.txt');
 insert into attachs(name) values('calender2022.jpg');
 
-insert into item(name, users_id, сategory_id, state_id) values('Complete project #4', 1, 1 , 2);
-insert into item(name, users_id, сategory_id, state_id) values('Look throught new CVs', 1, 1 , 2);
-insert into item(name, users_id, сategory_id, state_id) values('Fix the email agent', 2, 2 , 1);
-insert into item(name, users_id, сategory_id, state_id) values('Clean the reestr', 3, 1 , 1);
-insert into item(name, users_id, сategory_id, state_id) values('Check for updates of MS office', 3, 1 , 1);
-insert into item(name, users_id, сategory_id, state_id) values('Take a sleep in the conference room', 4, 2 , 2);
+insert into item(name, users_id, category_id, state_id) values('Complete project #4', 1, 1 , 2);
+insert into item(name, users_id, category_id, state_id) values('Look throught new CVs', 1, 1 , 2);
+insert into item(name, users_id, category_id, state_id) values('Fix the email agent', 2, 2 , 1);
+insert into item(name, users_id, category_id, state_id) values('Clean the reestr', 3, 1 , 1);
+insert into item(name, users_id, category_id, state_id) values('Check for updates of MS office', 3, 1 , 1);
+insert into item(name, users_id, category_id, state_id) values('Take a sleep in the conference room', 4, 2 , 2);
