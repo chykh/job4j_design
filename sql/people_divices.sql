@@ -10,6 +10,7 @@ create table people(
 );
 
 create table devices_people(
+
     id serial primary key,
     device_id int references devices(id),
     people_id int references people(id)
@@ -21,14 +22,19 @@ insert into devices_people(device_id, people_id) values(1, 1), (1, 3), (2, 1), (
 
 select avg(price) as "Средняя цена девайсов" from devices;
 
-select devices_people.people_id, avg(devices.price) 
-from devices_people join devices
-on devices_people.device_id = devices.id 
-group by devices_people.people_id;
+select p.name as Имя, avg(d.price) as Средняя_цена 
+from devices_people as d_p
+join people as p
+on d_p.people_id = p.id
+join devices as d
+on d.id = d_p.device_id
+group by p.name;
 
-
-select devices_people.people_id, avg(devices.price) 
-from devices_people join devices
-on devices_people.device_id = devices.id 
-group by devices_people.people_id
-having avg(devices.price) > 500;
+select p.name as Имя, avg(d.price) as Средняя_цена 
+from devices_people as d_p
+join people as p
+on d_p.people_id = p.id
+join devices as d
+on d.id = d_p.device_id
+group by p.name
+having avg(d.price) > 5000;
