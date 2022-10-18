@@ -25,7 +25,7 @@ insert into product (name, type_id, expired_date, price) values ('Маасдам
 
 select * from product join type on product.type_id = type.id where type.name = 'Сыр';
 select * from product where product.name like '%мороженое%';
-select * from product where product.expired_date < '2022-10-16';
+select * from product where product.expired_date < CURRENT_DATE;
 select * from product order by price desc limit 1;
 select type.name, count(*) from product join type on product.type_id = type.id group by type.name;
 select * from product join type on product.type_id = type.id where type.name = 'Сыр' or type.name = 'Молоко';
