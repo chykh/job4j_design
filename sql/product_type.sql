@@ -1,14 +1,14 @@
-create table product(
-	id serial primary key,
-	name text,
-	type_id int,
-	expired_date date,
-	price int
-);
-
 create table type(
 	id serial primary key,
 	name text
+);
+
+create table product(
+	id serial primary key,
+	name text,
+	type_id int references type(id),
+	expired_date date,
+	price int
 );
 
 insert into type (name) values ('Колбаса'), ('Молоко'), ('Хлеб'), ('Сладости'), ('Сыр');
@@ -34,11 +34,7 @@ where product.name like '%мороженое%';
 select * from product
 where product.expired_date < CURRENT_DATE;
 
-select max(product.price) 
-from product;
-
-select * from product
-where product.price = 600;
+select * from product where product.price = (select max(product.price) from product);
 
 select t.name, count(*) 
 from product as p join type as t 
@@ -61,3 +57,5 @@ having count(*) < 10;
 select * from product as p
 join type as t
 on p.type_id = t.id;
+
+
