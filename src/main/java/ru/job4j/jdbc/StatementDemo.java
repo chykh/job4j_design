@@ -16,7 +16,6 @@ public class StatementDemo {
     public static String getTableScheme(Connection connection, String tableName) throws Exception {
         var rowSeparator = "-".repeat(30).concat(System.lineSeparator());
         var header = String.format("%-15s|%-15s%n", "NAME", "TYPE");
-        //var buffer = new StringJoiner(rowSeparator);
         var buffer = new StringJoiner(rowSeparator, rowSeparator, rowSeparator);
         buffer.add(header);
         try (var statement = connection.createStatement()) {
