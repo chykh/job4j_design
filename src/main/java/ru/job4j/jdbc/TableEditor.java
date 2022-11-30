@@ -100,4 +100,5 @@ public class TableEditor implements AutoCloseable {
         tableEditor.dropTable("Займы");
         tableEditor.close();
     }
+
 }
