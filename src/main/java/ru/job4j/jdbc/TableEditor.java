@@ -30,23 +30,23 @@ public class TableEditor implements AutoCloseable {
     }
 
     public void createTable(String tableName) throws Exception {
-        action("create table if not exists " + tableName + "();");
+        action(String.format("create table if not exists %s();", tableName));
     }
 
     public void dropTable(String tableName) throws Exception {
-        action("drop table " + tableName + ";");
+        action(String.format("drop table %s;", tableName));
     }
 
     public void addColumn(String tableName, String columnName, String type) throws Exception {
-        action("alter table " + tableName + " add column " + columnName + " " + type + ";");
+        action(String.format("alter table %s add column %s %s;", tableName, columnName, type));
     }
 
     public void dropColumn(String tableName, String columnName) throws Exception {
-        action("alter table " + tableName + " drop column " + columnName + " cascade;");
+        action(String.format("alter table %s drop column %s cascade;", tableName, columnName));
     }
 
     public void renameColumn(String tableName, String columnName, String newColumnName) throws Exception {
-        action("alter table " + tableName + " rename column " + columnName + " to " + newColumnName + ";");
+        action(String.format("alter table %s rename column %s to %s ;", tableName, columnName, newColumnName));
     }
 
     public String getTableScheme(String tableName) throws Exception {
@@ -76,29 +76,34 @@ public class TableEditor implements AutoCloseable {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Properties config = new Properties();
+
         try (InputStream in = TableEditor.class.getClassLoader().getResourceAsStream("jdbc.properties")) {
             config.load(in);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        TableEditor tableEditor = new TableEditor(config);
 
-        tableEditor.createTable("Займы");
-        tableEditor.addColumn("Займы", "id", "serial primary key");
-        tableEditor.addColumn("Займы", "Имя", "varchar(50)");
-        System.out.println("Таблица, Состояние 1 \n" + tableEditor.getTableScheme("Займы"));
+        try (TableEditor tableEditor = new TableEditor(config)) {
+            tableEditor.createTable("Займы");
+            tableEditor.addColumn("Займы", "id", "serial primary key");
+            tableEditor.addColumn("Займы", "Имя", "varchar(50)");
+            System.out.println("Таблица, Состояние 1 \n" + tableEditor.getTableScheme("Займы"));
 
-        tableEditor.addColumn("Займы", "Сумма", "integer");
-        System.out.println("Таблица, Состояние 2 \n" + tableEditor.getTableScheme("Займы"));
+            tableEditor.addColumn("Займы", "Сумма", "integer");
+            System.out.println("Таблица, Состояние 2 \n" + tableEditor.getTableScheme("Займы"));
 
-        tableEditor.renameColumn("Займы", "Сумма", "Количество");
-        System.out.println("Таблица, Состояние 3 \n" + tableEditor.getTableScheme("Займы"));
+            tableEditor.renameColumn("Займы", "Сумма", "Количество");
+            System.out.println("Таблица, Состояние 3 \n" + tableEditor.getTableScheme("Займы"));
 
-        tableEditor.dropColumn("Займы", "Количество");
-        System.out.println("Таблица, Состояние 4 \n" + tableEditor.getTableScheme("Займы"));
+            tableEditor.dropColumn("Займы", "Количество");
+            System.out.println("Таблица, Состояние 4 \n" + tableEditor.getTableScheme("Займы"));
 
-        tableEditor.dropTable("Займы");
-        tableEditor.close();
+            tableEditor.dropTable("Займы");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
