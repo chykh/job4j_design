@@ -11,6 +11,9 @@ import java.util.Properties;
 
 public class ImportDB {
 
+    private Properties cfg;
+    private String dump;
+
     private static class User {
         String name;
         String email;
@@ -21,18 +24,28 @@ public class ImportDB {
         }
     }
 
-    private Properties cfg;
-    private String dump;
-
     public ImportDB(Properties cfg, String dump) {
         this.cfg = cfg;
         this.dump = dump;
     }
 
+    public void check(String[] words) {
+        if (words.length != 2 || words[1].length() == 0 || words[0].length() == 0) {
+            throw new IllegalArgumentException();
+        }
+    }
+
     public List<User> load() throws IOException {
+        List<String> strings = new ArrayList<>();
         List<User> users = new ArrayList<>();
+
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
-            rd.lines().forEach(x -> users.add(new User(x.split(";")[0], x.split(";")[1])));
+            rd.lines().forEach(strings::add);
+            for (String string : strings) {
+                String[] words = string.split(";");
+                check(words);
+                users.add(new User(words[0], words[1]));
+            }
         }
         return users;
     }
@@ -45,7 +58,8 @@ public class ImportDB {
                 cfg.getProperty("jdbc.password")
         )) {
             for (User user : users) {
-                try (PreparedStatement ps = cnt.prepareStatement("insert into users(name, email) values (?, ?)")) {
+                try (PreparedStatement ps = cnt.prepareStatement(
+                        "insert into users(name, email) values (?, ?)")) {
                     ps.setString(1, user.name);
                     ps.setString(2, user.email);
                     ps.execute();
