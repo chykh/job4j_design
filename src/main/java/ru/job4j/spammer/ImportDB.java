@@ -29,23 +29,21 @@ public class ImportDB {
         this.dump = dump;
     }
 
-    public void check(String[] words) {
-        if (words.length != 2 || words[1].length() == 0 || words[0].length() == 0) {
+    private void check(String[] words) {
+        if (words.length != 2 || words[0].isBlank() || words[1].isBlank()) {
             throw new IllegalArgumentException();
         }
     }
 
     public List<User> load() throws IOException {
-        List<String> strings = new ArrayList<>();
         List<User> users = new ArrayList<>();
 
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
-            rd.lines().forEach(strings::add);
-            for (String string : strings) {
-                String[] words = string.split(";");
+            rd.lines().forEach(line -> {
+                String[] words = line.split(";");
                 check(words);
                 users.add(new User(words[0], words[1]));
-            }
+            });
         }
         return users;
     }
